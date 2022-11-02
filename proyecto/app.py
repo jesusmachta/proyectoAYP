@@ -9,9 +9,7 @@ class App():
 
         self.discos = []
         self.clientes = []
-        self.cedulas_clientes = []
         self.staff = []
-        self.cedulas_staff = []
 
     def start(self):
         print("""
@@ -22,29 +20,99 @@ class App():
                     ¿Qué desea hacer?
                     Introduzca el número de su elección:
 
-                        1. Agregar Cliente
-                        2. Agregar Staff
-                        3. Agregar Discos
-                        4. Mostrar Discos Disponibles
-                        5. Eliminar discos
+                        1. Clientes
+                        2. Staff
+                        3. Mostrar Discos Disponibles
                         
                         """))
-            if s != "1" and s != "2" and s != "3" and s != "4" and s != "5":
+            if s != "1" and s != "2" and s != "3":
+                print("Error, intente de nuevo: ")
+            elif s == "1":
+                self.menu_clientes()
+            elif s == "2":
+                self.menu_staff()
+            elif s == "3":
+                self.mostrar_productos()
+            else:
+                print("Gracias por visitarnos!")
+                break
+
+    def menu_clientes(self):
+        print("""
+        --- ¡Bienvenido Estimado Cliente! ---
+        --- De no tener una cuenta, por favor registrece ---
+        --- De ya tener una cuenta, puede agregar al carrito ---
+        """)
+        while True:
+            s = (input("""
+                    ¿Qué desea hacer?
+                    Introduzca el número de su elección:
+
+                        1. Registrar Cliente
+                        2. Carrito de Compras
+                        3. Atras
+                        
+                        """))
+            if s != "1" and s != "2" and s != "3":
                 print("Error, intente de nuevo: ")
             elif s == "1":
                 self.agregar_cliente()
             elif s == "2":
-                self.agregar_staff()
-            elif s == "3":
-                self.agregar_disco()
-            elif s == "4":
-                self.mostrar_productos()
-            elif s == "5":
-                self.eliminar_disco()
+                pass
             else:
                 print("Gracias por visitarnos!")
                 break
+
+    def menu_staff(self):
+        print("""
+        --- ¡Bienvenido Estimado Staff! ---
+        """)
+        while True:
+            s = (input("""
+                    ¿Qué desea hacer?
+                    Introduzca el número de su elección:
+
+                        1. Agregar Staff
+                        2. Inventario
+                        3. Atras
+                        
+                        """))
+            if s != "1" and s != "2" and s != "3":
+                print("Error, intente de nuevo: ")
+            elif s == "1":
+                self.agregar_staff()
+            elif s == "2":
+                self.inventario()
+            else:
+                break
     
+
+    def inventario(self):
+        print("""
+        --- ¡Bienvenido Estimado Staff! ---
+        """)
+        while True:
+            s = (input("""
+                    ¿Qué desea hacer?
+                    Introduzca el número de su elección:
+
+                        1. Agregar al Inventario
+                        2. Eliminar del Inventario
+                        3. Mostrar Productos Disponibles
+                        4. Atras
+                        
+                        """))
+            if s != "1" and s != "2" and s != "3" and s != "4":
+                print("Error, intente de nuevo: ")
+            elif s == "1":
+                self.agregar_disco()
+            elif s == "2":
+                self.eliminar_disco()
+            elif s == "3":
+                self.mostrar_productos()
+            else:
+                break
+
     def agregar_cliente(self):
 
         nombre = input("Por favor ingrese su nombre: ")
@@ -66,7 +134,7 @@ class App():
             "Apellido": apellido,
             "Cedula": cedula
             }
-
+        #cliente = Cliente(nombre, apellido, cedula)
         self.clientes.append(cliente)
         print("Cliente Agregado!")
     
@@ -91,6 +159,7 @@ class App():
             "Apellido": apellido,
             "Cedula": cedula
             }
+        #staffs = Staff(nombre, apellido, cedula)
         self.staff.append(staffs)
         print("Staff Agregado")
     
@@ -136,7 +205,7 @@ class App():
             "costo": costo,
             "precio_venta": precio_venta
         }
-
+        #discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
         self.discos.append(discos)
         print("Disco Agregado!")
 
