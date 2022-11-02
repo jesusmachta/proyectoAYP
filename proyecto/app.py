@@ -164,50 +164,58 @@ class App():
         print("Staff Agregado")
     
     def agregar_disco(self):
-
-        ids = random.randint(0,999)
-
-        titulo = input("Por favor ingrese el tiutlo del album: ")
-        while not titulo.isalpha():
+        cedula = input("Por favor ingrese su cedula asociada al registro del staff: ")
+        while not cedula.isnumeric():
             print("Error")
-            titulo = input("Por favor ingrese el titulo del album: ")
-        titulo = titulo.title()
-        
-        artista = input("Por favor ingrese el artista: ")
-        while not artista.isalpha():
-            print("Error")
-            titulo = input("Por favor ingrese el artista: ")
-        artista = artista.title()
-        
-        ano_publicacion = input("Por favor ingrese el año de publiación: ")
-        while not ano_publicacion.isnumeric():
-            print("Error")
-            ano_publicacion = input("Por favor ingrese el año de publiación: ")
-        ano_publicacion = int(ano_publicacion)
+            cedula = input("Por favor ingrese su cedula asociada al registro del staff: ")
+        cedula = int(cedula)
 
-        costo = input("Por favor ingrese el costo: ")
-        while not costo.isnumeric():
-            print("Error")
-            costo = input("Por favor ingrese el costo: ")
-        costo = int(costo)
+        for i, cedu in enumerate(self.staff):
+            if cedu['Cedula'] == cedula:
+                
+                ids = random.randint(0,999)
 
-        precio_venta = input("Por favor ingrese el precio de venta: ")
-        while not precio_venta.isnumeric():
-            print("Error")
-            precio_venta = input("Por favor ingrese el precio de venta: ")
-        precio_venta = int(precio_venta)
+                titulo = input("Por favor ingrese el tiutlo del album: ")
+                while not titulo.isalpha():
+                    print("Error")
+                    titulo = input("Por favor ingrese el titulo del album: ")
+                titulo = titulo.title()
 
-        discos = {
-            "ids": ids,
-            "tiutlo": titulo,
-            "artista": artista,
-            "ano_publiacion": ano_publicacion,
-            "costo": costo,
-            "precio_venta": precio_venta
-        }
-        #discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
-        self.discos.append(discos)
-        print("Disco Agregado!")
+                artista = input("Por favor ingrese el artista: ")
+                while not artista.isalpha():
+                    print("Error")
+                    titulo = input("Por favor ingrese el artista: ")
+                artista = artista.title()
+
+                ano_publicacion = input("Por favor ingrese el año de publiación: ")
+                while not ano_publicacion.isnumeric():
+                    print("Error")
+                    ano_publicacion = input("Por favor ingrese el año de publiación: ")
+                ano_publicacion = int(ano_publicacion)
+
+                costo = input("Por favor ingrese el costo: ")
+                while not costo.isnumeric():
+                    print("Error")
+                    costo = input("Por favor ingrese el costo: ")
+                costo = int(costo)
+
+                precio_venta = input("Por favor ingrese el precio de venta: ")
+                while not precio_venta.isnumeric():
+                    print("Error")
+                    precio_venta = input("Por favor ingrese el precio de venta: ")
+                precio_venta = int(precio_venta)
+
+                discos = {
+                    "ids": ids,
+                    "tiutlo": titulo,
+                    "artista": artista,
+                    "ano_publiacion": ano_publicacion,
+                    "costo": costo,
+                    "precio_venta": precio_venta
+                }
+                #discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
+                self.discos.append(discos)
+                print("Disco Agregado!")
 
     def mostrar_productos(self):
         for i in self.discos:
@@ -217,15 +225,24 @@ class App():
         
         for i in self.discos:
             print(i)
-        ids = input("Por favor ingrese el id del disco: ")
-        while not ids.isnumeric():
-            print("Error el id no esta en el inventario o es incorrecto")
-            ids = input("Por favor ingrese el id del disco: ")
+            
+        cedula = input("Por favor ingrese su cedula asociada al registro del staff: ")
+        while not cedula.isnumeric():
+            print("Error")
+            cedula = input("Por favor ingrese su cedula asociada al registro del staff: ")
+        cedula = int(cedula)
 
-        ids = int(ids)
+        for i, cedu in enumerate(self.staff):
+            if cedu['Cedula'] == cedula:
+                ids = input("Por favor ingrese el id del disco: ")
+                while not ids.isnumeric():
+                    print("Error el id no esta en el inventario o es incorrecto")
+                    ids = input("Por favor ingrese el id del disco: ")
 
-        for i, disco in enumerate(self.discos):
-                if disco['ids'] == ids:
-                    del self.discos[i]
+                ids = int(ids)
 
-        print("Disco Eliminado!")
+                for i, disco in enumerate(self.discos):
+                        if disco['ids'] == ids:
+                            del self.discos[i]
+
+                print("Disco Eliminado!")
