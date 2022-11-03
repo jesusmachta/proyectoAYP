@@ -1,5 +1,6 @@
 import random
 import requests
+import copy
 from Discos import Discos
 from Cliente import Cliente
 from Staff import Staff
@@ -10,6 +11,7 @@ class App():
         self.discos = []
         self.clientes = []
         self.staff = []
+        self.carrito = []
 
     def start(self):
         print("""
@@ -49,16 +51,19 @@ class App():
                     Introduzca el número de su elección:
 
                         1. Registrar Cliente
-                        2. Carrito de Compras
-                        3. Atras
+                        2. Agregar al Carrito de Compras
+                        3. Elimnar del Carrito de Compras
+                        4. Atras
                         
                         """))
-            if s != "1" and s != "2" and s != "3":
+            if s != "1" and s != "2" and s != "3" and s != "4":
                 print("Error, intente de nuevo: ")
             elif s == "1":
                 self.agregar_cliente()
             elif s == "2":
-                pass
+                self.carrito_agregar()
+            elif s == "3":
+                self.carrito_eliminar()
             else:
                 print("Gracias por visitarnos!")
                 break
@@ -172,7 +177,7 @@ class App():
 
         for i, cedu in enumerate(self.staff):
             if cedu['Cedula'] == cedula:
-                
+
                 ids = random.randint(0,999)
 
                 titulo = input("Por favor ingrese el tiutlo del album: ")
@@ -246,3 +251,50 @@ class App():
                             del self.discos[i]
 
                 print("Disco Eliminado!")
+
+    def carrito_agregar(self):
+        cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
+        while not cedula.isnumeric():
+            print("Error")
+            cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
+        cedula = int(cedula)
+
+        for i, cedu in enumerate(self.clientes):
+            if cedu['Cedula'] == cedula:
+                ids = input("Por favor ingrese el id del disco: ")
+                while not ids.isnumeric():
+                    print("Error el id no esta en el inventario o es incorrecto")
+                    ids = input("Por favor ingrese el id del disco: ")
+
+                ids = int(ids)
+
+                for disco in self.discos:
+                        if disco['ids'] == ids:
+                            carritos = copy.deepcopy(disco)                         
+                            self.carrito.append(carritos)
+                            del self.discos[i]
+                print("Disco Agregado a su Carrito!")
+                print(self.carrito)
+
+    def carrito_eliminar(self):
+        cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
+        while not cedula.isnumeric():
+            print("Error")
+            cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
+        cedula = int(cedula)
+
+        for i, cedu in enumerate(self.clientes):
+            if cedu['Cedula'] == cedula:
+                ids = input("Por favor ingrese el id del disco: ")
+                while not ids.isnumeric():
+                    print("Error el id no esta en el inventario o es incorrecto")
+                    ids = input("Por favor ingrese el id del disco: ")
+
+                ids = int(ids)
+
+                for i, disco in enumerate(self.carrito):
+                        if disco['ids'] == ids:
+                            del self.carrito[i]
+
+                print("Disco Eliminado de su carrito")
+                print(self.carrito)
