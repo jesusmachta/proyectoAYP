@@ -8,11 +8,11 @@ class Discos:
         self.precio_venta = precio_venta
 
     def show_attr(self):
-        return f"""
+        print (f"""
                 ids: {self.ids}
                 titulo: {self.titulo}
                 artista: {self.artista}
                 ano_publicacion: {self.ano_publiacion}
                 costo: {self.costo}
                 precio_venta: {self.precio_venta}
-                """
+                """)

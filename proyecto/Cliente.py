@@ -5,8 +5,8 @@ class Cliente:
         self.cedula = cedula
     
     def show_attr(self):
-        return f"""
+        print (f"""
                 Nombre: {self.nombre}
                 Apellido: {self.apellido}
                 Cedula: {self.cedula}
-                """
+                """)
