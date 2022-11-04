@@ -143,7 +143,7 @@ class App():
             "Apellido": apellido,
             "Cedula": cedula
             }
-        #cliente = Cliente(nombre, apellido, cedula)
+        cliente = Cliente(nombre, apellido, cedula)
         self.clientes.append(cliente)
         print("Cliente Agregado!")
     
@@ -168,7 +168,7 @@ class App():
             "Apellido": apellido,
             "Cedula": cedula
             }
-        #staffs = Staff(nombre, apellido, cedula)
+        staffs = Staff(nombre, apellido, cedula)
         self.staff.append(staffs)
         print("Staff Agregado")
     
@@ -216,13 +216,13 @@ class App():
 
                 discos = {
                     "ids": ids,
-                    "tiutlo": titulo,
+                    "titulo": titulo,
                     "artista": artista,
                     "ano_publiacion": ano_publicacion,
                     "costo": costo,
                     "precio_venta": precio_venta
                 }
-                #discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
+                discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
                 self.discos.append(discos)
                 print("Disco Agregado!")
 
