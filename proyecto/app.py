@@ -13,6 +13,7 @@ class App():
         self.clientes = []
         self.staff = []
         self.carrito = []
+        self.ids = []
 
     def start(self):
         print("""
@@ -26,9 +27,10 @@ class App():
                         1. Staff
                         2. Clientes
                         3. Mostrar Discos Disponibles
+                        4. Estadisticas
                         
                         """))
-            if s != "1" and s != "2" and s != "3":
+            if s != "1" and s != "2" and s != "3" and s == "4":
                 print("Error, intente de nuevo: ")
             elif s == "1":
                 self.menu_staff()
@@ -36,6 +38,8 @@ class App():
                 self.menu_clientes()
             elif s == "3":
                 self.mostrar_productos()
+            elif s == "4":
+                self.estadisticas()
             else:
                 print("Gracias por visitarnos!")
                 break
@@ -55,10 +59,11 @@ class App():
                         2. Agregar al Carrito de Compras
                         3. Elimnar del Carrito de Compras
                         4. CheckOut
-                        5. Atras
+                        5. Regalo
+                        6. Atras
                         
                         """))
-            if s != "1" and s != "2" and s != "3" and s != "4" and s != "5":
+            if s != "1" and s != "2" and s != "3" and s != "4" and s != "5" and s != "6":
                 print("Error, intente de nuevo: ")
             elif s == "1":
                 self.agregar_cliente()
@@ -68,6 +73,8 @@ class App():
                 self.carrito_eliminar()
             elif s == "4":
                 self.checkout()
+            elif s == "5":
+                self.regalo()
             else:
                 print("Gracias por visitarnos!")
                 break
@@ -95,7 +102,6 @@ class App():
             else:
                 break
     
-
     def inventario(self):
         print("""
         --- ¡Bienvenido Estimado Staff! ---
@@ -183,6 +189,14 @@ class App():
             if cedu['Cedula'] == cedula:
 
                 ids = random.randint(0,999)
+                if ids in self.ids:
+                    print("Error el id ya esta registrado")
+                    ids = random.randint(0,999)
+                    self.ids.append(ids)
+                else:
+                    self.ids.append(ids)
+                print(self.ids)
+
 
                 titulo = input("Por favor ingrese el tiutlo del album: ")
                 while not titulo.isalpha():
@@ -316,4 +330,69 @@ class App():
         for i, cedu in enumerate(self.clientes):
             if cedu['Cedula'] == cedula:
                 costo_compra_cliente = sum(i['precio_venta'] for i in self.carrito)
-                print(f'El cliente debe cancelar: {costo_compra_cliente}$')
+                costo_con_iva = costo_compra_cliente + costo_compra_cliente * 0.03
+                print(f'El cliente debe cancelar: {costo_con_iva}$')
+
+    def regalo(self):
+        res = []
+        for ele in self.ids:
+            sum = 0
+            for digit in str(ele):
+                sum += int(digit)
+            res.append(sum)
+        print ("La Suma de los digitos del id es: " + str(res))    
+        for num in res:
+            if num == 7:
+                print("Querido cliente, su pedido es un regalo por parte de la Tienda")
+            else:
+                print("No se aplica la oferta del regalo")
+    
+    def estadisticas(self):
+        cedula = input("Por favor ingrese su cedula asociada al registro del staff: ")
+        while not cedula.isnumeric():
+            print("Error")
+            cedula = input("Por favor ingrese su cedula asociada al registro del staff: ")
+        cedula = int(cedula)
+
+        for i, cedu in enumerate(self.staff):
+            if cedu['Cedula'] == cedula:
+                print("""
+                --- ¡Bienvenido Estimado Staff! ---
+                --- ¡Aqui estan las Estadisticas de la Tienda! ---
+                """)
+                while True:
+                    s = (input("""
+                            ¿Qué desea hacer?
+                            Introduzca el número de su elección:
+        
+                                1. Clientes mas Fieles
+                                2. Clientes que mas han Gastado
+                                3. Géneros mas Vendido
+                                4. Artistas mas Vendidos
+                                5. Clientes Sin finiquitar compra
+                                6. Ingreso Bruto
+                                7. Ganancia Neta
+                                8. Discos Regalados
+                                9. Atras
+                                
+                                """))
+                    if s != "1" and s != "2" and s != "3" and s != "4" and s != "5" and s != "6" and s != "7" and s != "8" and s != "9":
+                        print("Error, intente de nuevo: ")
+                    elif s == "1":
+                        pass
+                    elif s == "2":
+                        pass
+                    elif s == "3":
+                        pass
+                    elif s == "4":
+                        pass
+                    elif s == "5":
+                        pass
+                    elif s == "6":
+                        pass
+                    elif s == "7":
+                        pass
+                    elif s == "8":
+                        pass
+                    else:
+                        break
