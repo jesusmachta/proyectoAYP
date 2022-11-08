@@ -137,13 +137,13 @@ class App():
             print("Error")
             cedula = input("Por favor ingrese su cedula: ")
         cedula = int(cedula)
-
+        
         cliente = {
             "Nombre": nombre,
             "Apellido": apellido,
             "Cedula": cedula
             }
-        cliente = Cliente(nombre, apellido, cedula)
+        #cliente = Cliente(nombre, apellido, cedula)
         self.clientes.append(cliente)
         print("Cliente Agregado!")
     
@@ -168,7 +168,7 @@ class App():
             "Apellido": apellido,
             "Cedula": cedula
             }
-        staffs = Staff(nombre, apellido, cedula)
+        #staffs = Staff(nombre, apellido, cedula)
         self.staff.append(staffs)
         print("Staff Agregado")
     
@@ -216,13 +216,13 @@ class App():
 
                 discos = {
                     "ids": ids,
-                    "titulo": titulo,
+                    "tiutlo": titulo,
                     "artista": artista,
                     "ano_publiacion": ano_publicacion,
                     "costo": costo,
                     "precio_venta": precio_venta
                 }
-                discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
+                #discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
                 self.discos.append(discos)
                 print("Disco Agregado!")
 
@@ -277,10 +277,9 @@ class App():
                         if disco['ids'] == ids:
                             carritos = copy.deepcopy(disco)                         
                             self.carrito.append(carritos)
-                            del self.discos[disco]
+                            del self.discos[i]
                 print("Disco Agregado a su Carrito!")
-                for d in self.carrito:
-                    print(d)
+                print(self.carrito)
 
     def carrito_eliminar(self):
         cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
@@ -291,8 +290,7 @@ class App():
 
         for i, cedu in enumerate(self.clientes):
             if cedu['Cedula'] == cedula:
-                for s in self.carrito:
-                    print(s)
+                print(self.carrito)
                 ids = input("Por favor ingrese el id del disco: ")
                 while not ids.isnumeric():
                     print("Error el id no esta en el inventario o es incorrecto")
@@ -305,8 +303,7 @@ class App():
                             del self.carrito[i]
 
                 print("Disco Eliminado de su carrito")
-                for i in self.carrtio:
-                    print(i)
+                print(self.carrito)
 
     def checkout(self):
 
