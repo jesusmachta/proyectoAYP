@@ -30,7 +30,7 @@ class App():
                         4. Estadisticas
                         
                         """))
-            if s != "1" and s != "2" and s != "3" and s == "4":
+            if s != "1" and s != "2" and s != "3" and s != "4":
                 print("Error, intente de nuevo: ")
             elif s == "1":
                 self.menu_staff()
@@ -198,16 +198,10 @@ class App():
                 print(self.ids)
 
 
-                titulo = input("Por favor ingrese el tiutlo del album: ")
-                while not titulo.isalpha():
-                    print("Error")
-                    titulo = input("Por favor ingrese el titulo del album: ")
+                titulo = input("Por favor ingrese el titulo del album: ")
                 titulo = titulo.title()
 
                 artista = input("Por favor ingrese el artista: ")
-                while not artista.isalpha():
-                    print("Error")
-                    titulo = input("Por favor ingrese el artista: ")
                 artista = artista.title()
 
                 ano_publicacion = input("Por favor ingrese el año de publiación: ")
@@ -230,7 +224,7 @@ class App():
 
                 discos = {
                     "ids": ids,
-                    "tiutlo": titulo,
+                    "titulo": titulo,
                     "artista": artista,
                     "ano_publiacion": ano_publicacion,
                     "costo": costo,
@@ -238,6 +232,8 @@ class App():
                 }
                 #discos = Discos(ids, titulo, artista, ano_publicacion, costo, precio_venta)
                 self.discos.append(discos)
+                for d in self.discos:
+                    print(d)
                 print("Disco Agregado!")
 
     def mostrar_productos(self):
@@ -268,8 +264,10 @@ class App():
                         if disco['ids'] == ids:
                             del self.discos[i]
 
+                for d in self.discos:
+                    print(d)
                 print("Disco Eliminado!")
-
+                
     def carrito_agregar(self):
         cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
         while not cedula.isnumeric():
@@ -279,13 +277,32 @@ class App():
 
         for i, cedu in enumerate(self.clientes):
             if cedu['Cedula'] == cedula:
-                print(self.discos)
+                for d in self.discos:
+                    print(d)
                 ids = input("Por favor ingrese el id del disco: ")
                 while not ids.isnumeric():
                     print("Error el id no esta en el inventario o es incorrecto")
                     ids = input("Por favor ingrese el id del disco: ")
-
                 ids = int(ids)
+
+                # for disco in self.discos:
+                #     if ids in disco == ids:
+                #         carritos = copy.deepcopy(disco)                         
+                #         self.carrito.append(carritos)
+                #         del disco[ids]
+
+                # for i in range(len(self.discos)):
+                #     if self.discos[i].get('ids') == ids:
+                #         carritos = copy.deepcopy(i)                         
+                #         self.carrito.append(carritos)
+                #         del self.discos[i]
+
+                # for index in range(len(self.discos)):
+                #     if self.discos[index]['ids'] == ids:
+                #         carritos = copy.deepcopy(index)                         
+                #         self.carrito.append(carritos)
+                #         del self.discos[index]
+
 
                 for disco in self.discos:
                         if disco['ids'] == ids:
@@ -293,7 +310,8 @@ class App():
                             self.carrito.append(carritos)
                             del self.discos[i]
                 print("Disco Agregado a su Carrito!")
-                print(self.carrito)
+                for c in self.carrito:
+                    print(c)
 
     def carrito_eliminar(self):
         cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
@@ -304,7 +322,8 @@ class App():
 
         for i, cedu in enumerate(self.clientes):
             if cedu['Cedula'] == cedula:
-                print(self.carrito)
+                for c in self.carrito:
+                    print(c)
                 ids = input("Por favor ingrese el id del disco: ")
                 while not ids.isnumeric():
                     print("Error el id no esta en el inventario o es incorrecto")
@@ -314,10 +333,11 @@ class App():
 
                 for i, disco in enumerate(self.carrito):
                         if disco['ids'] == ids:
+                            self.disco.append(i)
                             del self.carrito[i]
-
-                print("Disco Eliminado de su carrito")
-                print(self.carrito)
+                print("Disco Eliminado de su carrito y Regresado al inventario de la tienda")
+                for c in self.carrito:
+                    print(c)
 
     def checkout(self):
 
@@ -327,11 +347,16 @@ class App():
             cedula = input("Por favor ingrese su cedula asociada a su registro como cliente: ")
         cedula = int(cedula)
 
+        for c in self.carrito:
+            print(c)
+
         for i, cedu in enumerate(self.clientes):
             if cedu['Cedula'] == cedula:
                 costo_compra_cliente = sum(i['precio_venta'] for i in self.carrito)
                 costo_con_iva = costo_compra_cliente + costo_compra_cliente * 0.03
-                print(f'El cliente debe cancelar: {costo_con_iva}$')
+                for c in self.clientes:
+                    for s in self.carrito:
+                        print(f'El cliente {c} debe cancelar: {costo_con_iva}$ por su compra de {s}')
 
     def regalo(self):
         res = []
@@ -379,7 +404,7 @@ class App():
                     if s != "1" and s != "2" and s != "3" and s != "4" and s != "5" and s != "6" and s != "7" and s != "8" and s != "9":
                         print("Error, intente de nuevo: ")
                     elif s == "1":
-                        pass
+                        self.clientes_fieles()
                     elif s == "2":
                         pass
                     elif s == "3":
@@ -396,3 +421,30 @@ class App():
                         pass
                     else:
                         break
+
+    def clientes_fieles(self):
+        clientes = []
+        for i in self.clientes:
+            clientes.append(i)
+        if len(self.clientes) != 0:
+            no1 = max(clientes,key=clientes.count)
+            for i in self.clientes:
+                if i == no1:
+                    clientes.remove(i)
+            print(f"1: {no1.cedula}")
+            if len(clientes)!= 0:
+                no2 = max(clientes,key=clientes.count)
+                for i in self.clientes:
+                    if i == no2:
+                        clientes.remove(i)
+                print(f"2: {no2.cedula}")
+                if len(clientes) != 0:
+                    no3 = max(clientes,key=clientes.count)
+                    print(f"3: {no3.cedula}")
+                else:
+                    print("Solo se han registrado 2 clientes")
+            else:
+                print("Solo se ha registrado cliente")
+                pass
+        else:
+            print("Aún no se ha registrado ningun cliente...")
