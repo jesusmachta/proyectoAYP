@@ -285,25 +285,6 @@ class App():
                     ids = input("Por favor ingrese el id del disco: ")
                 ids = int(ids)
 
-                # for disco in self.discos:
-                #     if ids in disco == ids:
-                #         carritos = copy.deepcopy(disco)                         
-                #         self.carrito.append(carritos)
-                #         del disco[ids]
-
-                # for i in range(len(self.discos)):
-                #     if self.discos[i].get('ids') == ids:
-                #         carritos = copy.deepcopy(i)                         
-                #         self.carrito.append(carritos)
-                #         del self.discos[i]
-
-                # for index in range(len(self.discos)):
-                #     if self.discos[index]['ids'] == ids:
-                #         carritos = copy.deepcopy(index)                         
-                #         self.carrito.append(carritos)
-                #         del self.discos[index]
-
-
                 for disco in self.discos:
                         if disco['ids'] == ids:
                             carritos = copy.deepcopy(disco)                         
@@ -422,29 +403,9 @@ class App():
                     else:
                         break
 
-    def clientes_fieles(self):
-        clientes = []
-        for i in self.clientes:
-            clientes.append(i)
-        if len(self.clientes) != 0:
-            no1 = max(clientes,key=clientes.count)
-            for i in self.clientes:
-                if i == no1:
-                    clientes.remove(i)
-            print(f"1: {no1.cedula}")
-            if len(clientes)!= 0:
-                no2 = max(clientes,key=clientes.count)
-                for i in self.clientes:
-                    if i == no2:
-                        clientes.remove(i)
-                print(f"2: {no2.cedula}")
-                if len(clientes) != 0:
-                    no3 = max(clientes,key=clientes.count)
-                    print(f"3: {no3.cedula}")
-                else:
-                    print("Solo se han registrado 2 clientes")
-            else:
-                print("Solo se ha registrado cliente")
-                pass
-        else:
-            print("Aún no se ha registrado ningun cliente...")
+    def clientes_fieles(self): #muestra los 3 clientes mas fieles 
+        clientes_fieles = []
+        for i in self.carrito:
+            clientes_fieles.append(i)
+        pass
+        
